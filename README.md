@@ -1,18 +1,24 @@
 ### 本项目是基于express封装的路由装饰器，可自动引入控制器，并以装饰器方式引入路由地址
-### 使用说明：  
+`github 项目地址：`(https://github.com/by-night/decorator)
+####下载  
+```
+npm install night-decorator
+```
+### 1. 使用说明：  
+####参数
 *autoRouter(Router, [options])*   
 * Router: 路由实例
 * options: 路由配置 (可选参数)
 
 *控制器路径:*  
-*默认为根目录的controller目录，可用过options的source 配置项修改*
+* 默认为根目录的controller目录，可用过options的source 配置项修改
 ```
 app.use(autoRouter(Router, {
     source: '/src/controller'
 }));
 
 ```
-###示例：
+###2. 示例：
 * 在根文件(一般为app.js) 中使用：
 ```
 const express = require("express");
