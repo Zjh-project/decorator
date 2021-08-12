@@ -6,6 +6,11 @@ class Decorator {
             target.reqParams = {...(target.reqParams || {}), baseUrl: url};
         }
     }
+    static Interceptor(url) {
+        return (target) => {
+            target.reqParams = {...(target.reqParams || {}), rootUrl: url};
+        }
+    }
 
     static Use(url) {
         return init('use', url)

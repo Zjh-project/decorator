@@ -10,11 +10,13 @@ npm install night-decorator
 * Router: 路由实例
 * options: 路由配置 (可选参数)
 
-*控制器路径:*  
-* 默认为根目录的controller目录，可用过options的source 配置项修改
+*路由配置[options]:*  
+* 路由路径：默认为根目录的controller目录，可用过options的 `con_path` 配置项修改
+* 拦截器路径：默认为根目录的interceptor目录，可用过options的 `inter_path` 配置项修改
 ```
 app.use(autoRouter(Router, {
-    source: '/src/controller'
+    con_path: '/src/controller',
+    inter_path: '/src/interceptor'
 }));
 
 ```
@@ -42,6 +44,23 @@ class Test {
     @Post('/sayHello') 
     sayHello(req, res) {
         res.send('hello world');
+    }
+}
+
+module.exports = Test;
+```
+
+* 在根目录中创建控制器目录 interceptor, 创建拦截器文件（选用）
+```
+const {Interceptor} = require('night-decorator/decorator');
+ // 要拦截的前缀
+@Interceptor("/demo")
+class Test {
+    init(req, res, next) {
+        
+        ... // 拦截处理
+        
+        next();
     }
 }
 
