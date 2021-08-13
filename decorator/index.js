@@ -7,8 +7,19 @@ class Decorator {
         }
     }
     static Interceptor(url) {
-        return (target) => {
-            target.reqParams = {...(target.reqParams || {}), rootUrl: url};
+        return (target, funcName) => {
+            const isClass = target.prototype;
+            if (isClass) {
+                target.reqParams = {...(target.reqParams || {}), rootUrl: url};
+                return;
+            }
+            target.constructor.reqParams = {
+                ...(target.constructor.reqParams || {}),
+                [funcName]: {
+                    url,
+                    method: 'use',
+                }
+            };
         }
     }
 

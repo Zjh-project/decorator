@@ -33,10 +33,14 @@ const autoRouter = (router, options = {}) => {
                 const Init = require(path.join(interceptor, fileName));
                 const instance = new Init();
                 if (!Init?.reqParams) continue;
-                const {rootUrl = ''} = Init.reqParams;
+                const {rootUrl = '', ...req} = Init.reqParams;
                 router.use(rootUrl, (req, res, next) => {
                     instance.init(req, res, next);
                 })
+                for (let key in req) {
+                    const {url, method} = req[key];
+                    router[method](rootUrl + url, dealError(instance[key]));
+                }
             } catch (e) {
                 console.log(e);
             }

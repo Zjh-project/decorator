@@ -50,13 +50,31 @@ class Test {
 module.exports = Test;
 ```
 
-* 在根目录中创建控制器目录 interceptor, 创建拦截器文件（选用）
+* 在根目录中创建控制器目录 interceptor, 创建拦截器文件（选用）  
+(1) 将装饰器放置在类上
 ```
 const {Interceptor} = require('night-decorator/decorator');
  // 要拦截的前缀
 @Interceptor("/demo")
 class Test {
+    // 必须指定为 init 函数
     init(req, res, next) {
+        
+        ... // 拦截处理
+        
+        next();
+    }
+}
+
+module.exports = Test;
+```
+(2) 将装饰器放置在方法上
+```
+const {Interceptor} = require('night-decorator/decorator');
+class Test {
+    @Interceptor("/demo")
+    // 方法可随意命名
+    say(req, res, next) {
         
         ... // 拦截处理
         
